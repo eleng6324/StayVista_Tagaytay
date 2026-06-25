@@ -115,7 +115,7 @@ function PricePage() {
     if (Number.isNaN(current) || current < min) {
       setDraftPrice(String(min));
     }
-  }, [pricingModel, isExperience]);
+  }, [pricingModel, isExperience, draftPrice]);
 
   const handleSave = (event) => {
     event.stopPropagation();
