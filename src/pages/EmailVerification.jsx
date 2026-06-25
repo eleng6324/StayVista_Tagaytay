@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { applyActionCode } from "firebase/auth";
 import { auth } from "../firebase";
 import AuthBackgroundVideo from "../components/AuthBackgroundVideo";
 
 function EmailVerification() {
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [status, setStatus] = useState({ type: "", message: "" });
   const [isProcessing, setIsProcessing] = useState(true);

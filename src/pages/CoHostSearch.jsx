@@ -4,7 +4,6 @@ import { auth } from "../firebase";
 import Navbar from "../components/Navbar";
 
 function CoHostSearch() {
-  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [profilePhotoURL, setProfilePhotoURL] = useState("");
   const [profileInitial, setProfileInitial] = useState("H");

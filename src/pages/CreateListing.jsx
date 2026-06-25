@@ -4,12 +4,6 @@ import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import Navbar from "../components/Navbar";
 
-const Airbnb = () => (
-  <svg viewBox="0 0 32 32" style={{ display: 'block', fill: 'currentColor', height: 32, width: 32 }}>
-    <path d="M16 1a7.88 7.88 0 0 1 6.72 3.97l.56.84-.9.54a64 64 0 0 0-5.07-3.42l-.71-.4-.71.4a64 64 0 0 0-5.07 3.42l-.9-.54.56-.84A7.88 7.88 0 0 1 16 1z"></path>
-  </svg>
-);
-
 function CreateListing() {
   const navigate = useNavigate();
   const location = useLocation();

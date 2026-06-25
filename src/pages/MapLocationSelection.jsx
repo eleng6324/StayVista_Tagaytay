@@ -13,7 +13,6 @@ function MapLocationSelection() {
   const [profileInitial, setProfileInitial] = useState("H");
   const [isPrecise, setIsPrecise] = useState(previousState.isPrecise ?? true);
   const [center, setCenter] = useState(previousState.center || { lat: 14.1092, lng: 120.9156 });
-  const [isGeocoding, setIsGeocoding] = useState(false);
 
   const address = previousState.address || "";
   const selectedType = previousState.selectedType || "";

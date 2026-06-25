@@ -29,12 +29,6 @@ const MapPinIcon = ({ size = 24 }) => <FontAwesomeIcon icon="map-pin" size={size
 const ShieldIcon = ({ size = 24 }) => <FontAwesomeIcon icon="shield" size={size} />;
 const SchoolIcon = ({ size = 24 }) => <FontAwesomeIcon icon="school" size={size} />;
 const BriefcaseIcon = ({ size = 24 }) => <FontAwesomeIcon icon="briefcase" size={size} />;
-const KitchenIcon = ({ size = 24 }) => <FontAwesomeIcon icon="utensils" size={size} />;
-const WifiIcon = ({ size = 24 }) => <FontAwesomeIcon icon="wifi" size={size} />;
-const TvIcon = ({ size = 24 }) => <FontAwesomeIcon icon="tv" size={size} />;
-const SnowflakeIcon = ({ size = 24 }) => <FontAwesomeIcon icon="snowflake" size={size} />;
-const BathIcon = ({ size = 24 }) => <FontAwesomeIcon icon="bath" size={size} />;
-const AlarmIcon = ({ size = 24 }) => <FontAwesomeIcon icon="bell" size={size} />;
 
 function getAmenityIcon(name) {
   const label = name.toLowerCase();
@@ -960,7 +954,7 @@ export default function ListingDetails() {
                         <span style={{ fontSize: '12px', color: '#717171', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Reviews</span>
                       </div>
                       <div style={{ textAlign: 'center' }}>
-                        <strong style={{ display: 'block', fontSize: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '2px' }}>{currentHost.rating} <StarIcon size={14} /></strong>
+                        <strong style={{ display: 'flex', fontSize: '20px', alignItems: 'center', justifyContent: 'center', gap: '2px' }}>{currentHost.rating} <StarIcon size={14} /></strong>
                         <span style={{ fontSize: '12px', color: '#717171', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Rating</span>
                       </div>
                     </div>

@@ -38,8 +38,6 @@ export default function BookingApproval() {
   const [actionLoadingId, setActionLoadingId] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const location = useLocation();
-
   useEffect(() => {
     const allBookings = loadBookings();
     const hostBookings = filterBookingsByHost(allBookings, auth.currentUser?.uid || "", auth.currentUser?.email || "");

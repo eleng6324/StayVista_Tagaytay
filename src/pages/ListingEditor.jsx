@@ -1933,7 +1933,7 @@ function ListingEditor() {
             <div>
               <h2 style={{ marginBottom: 8 }}>Invite a co-host</h2>
               <p className="create-listing-description">A co-host can help you with everything from managing your calendar to welcoming guests.</p>
-              <a href="#" style={{ display: 'inline-block', color: '#111827', fontWeight: 600, marginTop: 8 }}>Learn about co-hosting</a>
+              <button type="button" style={{ display: 'inline-block', color: '#111827', fontWeight: 600, marginTop: 8 }} onClick={() => window.location.href = '/host/create-listing/co-host'}>Learn about co-hosting</button>
             </div>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <button type="button" className="create-listing-button" style={{ minWidth: 140, padding: '12px 18px', fontSize: 14 }}>Get started</button>
@@ -3357,8 +3357,6 @@ function ListingEditor() {
         onMenuToggle={() => setMenuOpen((value) => !value)}
         menuOpen={menuOpen}
         homePath="/host"
-        isHost
-        isHost
         isHost
       />
 

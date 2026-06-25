@@ -11,7 +11,6 @@ function GuestMessages() {
   const [profileInitial, setProfileInitial] = useState("P");
   const [menuOpen, setMenuOpen] = useState(false);
   const [messageFilter, setMessageFilter] = useState("all");
-  const [refreshKey, setRefreshKey] = useState(0);
 
   const unreadCount = messages.filter((message) => !message.read).length;
   const messagesToShow = messageFilter === "unread"

@@ -6,25 +6,6 @@ import { auth, db } from "../firebase";
 import Navbar from "../components/Navbar";
 import { loadBookings, filterBookingsByHost } from "../utils/bookingStorage";
 
-const hostMetrics = [
-  { title: "Active Listings", value: "12", description: "Homes, experiences, services visible now." },
-  { title: "Drafts", value: "5", description: "Saved hosting drafts waiting to publish." },
-  { title: "Upcoming Bookings", value: "8", description: "Reserved stays and experiences this week." },
-  { title: "Pending Payouts", value: "₱18,450", description: "Expected earnings arriving soon." }
-];
-
-const hostFeatures = [
-  { title: "Account registration", description: "Allow users to register via email or SMS and manage host login details." },
-  { title: "Hosting categories", description: "Manage hosting types: Home, Experience, Service." },
-  { title: "Draft management", description: "Save listings as drafts and publish when ready." },
-  { title: "Host listing editor", description: "Add images, location, description, pricing, discounts, and promos." },
-  { title: "Messages & calendar", description: "View guest messages, listing activity, and booking calendar." },
-  { title: "Dashboard overview", description: "See today, upcoming stays, and performance at a glance." },
-  { title: "Payments", description: "Connect payment methods and track payouts." },
-  { title: "Account settings", description: "Manage profile, bookings, coupons, and host preferences." },
-  { title: "Points & rewards", description: "Reward loyal hosts with incentives and special benefits." }
-];
-
 function HostHome() {
   const navigate = useNavigate();
   const location = useLocation();

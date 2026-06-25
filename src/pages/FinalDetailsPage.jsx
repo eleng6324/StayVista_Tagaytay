@@ -113,7 +113,7 @@ function FinalDetailsPage() {
 
       parseAddress();
     }
-  }, [previousState.address]);
+  }, [previousState.address, addressDetails.city, addressDetails.street]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

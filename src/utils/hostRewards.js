@@ -28,13 +28,6 @@ function makeId(prefix = "id") {
   return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
-function normalizeDateKey(date) {
-  if (!date) return null;
-  const parsed = new Date(date);
-  if (Number.isNaN(parsed.getTime())) return null;
-  return `${parsed.getFullYear()}-${String(parsed.getMonth() + 1).padStart(2, "0")}-${String(parsed.getDate()).padStart(2, "0")}`;
-}
-
 function startOfDay(date) {
   const copy = new Date(date);
   copy.setHours(0, 0, 0, 0);

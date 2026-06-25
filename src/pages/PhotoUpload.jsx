@@ -29,14 +29,11 @@ function PhotoUpload() {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [failedUploads, setFailedUploads] = useState([]);
-  const [lastUploadError, setLastUploadError] = useState(null);
-  const [storageFallbackUsed, setStorageFallbackUsed] = useState(false);
   const [draftId, setDraftId] = useState(previousState.draftId || previousState.listingDraftId || "");
 
   // Retrieve state from previous step
   const address = previousState.address || "";
   const selectedType = previousState.selectedType || "";
-  const selectedOption = previousState.selectedOption || "";
   const isExperience = selectedType.toLowerCase() === "experience";
   const isService = selectedType.toLowerCase() === "service";
   const guests = previousState.guests || 1;
@@ -45,7 +42,6 @@ function PhotoUpload() {
   const bathrooms = previousState.bathrooms || 1;
   const amenities = previousState.amenities || [];
   const currentPhotoUrls = photos.filter((photo) => photo.url).map((photo) => photo.url);
-  const photoUrls = previousState.photoUrls || [];
 
   const openSameTab = (path) => {
     window.location.href = path;
@@ -305,6 +301,7 @@ function PhotoUpload() {
         // Create XMLHttpRequest for progress tracking
         const xhr = new XMLHttpRequest();
         
+        // eslint-disable-next-line no-loop-func
         return await new Promise((resolve, reject) => {
           xhr.upload.addEventListener('progress', (e) => {
             if (e.lengthComputable) {
@@ -376,19 +373,20 @@ function PhotoUpload() {
       const file = files[i];
 
       try {
+        // eslint-disable-next-line no-loop-func
         const downloadURL = await uploadFileWithRetries(file, (snapshot) => {
           if (!useEqualWeights) {
             const currentProgress = Math.min(100, Math.round(((uploadedBytes + snapshot.bytesTransferred) / totalBytes) * 100));
             setUploadProgress(currentProgress);
           } else {
-            const approx = Math.round(((uploadedCount + (snapshot.bytesTransferred > 0 ? 0.5 : 0)) / files.length) * 100);
+            const approx = Math.round(((uploadedCountNum + (snapshot.bytesTransferred > 0 ? 0.5 : 0)) / files.length) * 100);
             setUploadProgress(Math.min(100, approx));
           }
         });
 
         results.push({ file, url: downloadURL });
-        uploadedBytes += file.size || 0;
-        uploadedCount += 1;
+        uploadedBytesNum += file.size || 0;
+        uploadedCountNum += 1;
         if (!useEqualWeights) {
           setUploadProgress(Math.min(100, Math.round((uploadedBytes / totalBytes) * 100)));
         } else {
@@ -509,8 +507,6 @@ function PhotoUpload() {
   const removePhoto = (indexToRemove) => {
     setPhotos((prev) => prev.filter((_, index) => index !== indexToRemove));
   };
-
-  const retryFailedUploads = async () => {
     if (!failedUploads || failedUploads.length === 0) return;
     try {
       const results = await uploadFiles(failedUploads);

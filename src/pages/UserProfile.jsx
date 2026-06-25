@@ -9,8 +9,6 @@ import { getListingById } from "../mockData";
 
 const connections = [];
 
-const bookings = [];
-
 const getFavoritesKey = (uid) => `stayvista-favorites-${uid}`;
 const getWishlistKey = (uid) => `stayvista-wishlist-${uid}`;
 

@@ -51,10 +51,6 @@ function WeekendPrice() {
     window.location.href = path;
   };
 
-  const handleLogout = async () => {
-    await signOut(auth);
-  };
-
   const weekendBase = Math.round(basePrice * (1 + premium / 100));
   const guestServiceFee = Math.round(weekendBase * 0.141);
   const guestPrice = weekendBase + guestServiceFee;

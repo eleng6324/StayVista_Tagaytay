@@ -6,17 +6,6 @@ import { auth, db } from "../firebase";
 import * as hostRewards from "../utils/hostRewards";
 import Navbar from "../components/Navbar";
 
-import {
-  categories,
-  homeSections,
-  experienceSections,
-  serviceCategories,
-  servicesByCategory,
-  serviceCategoryDetails,
-  categoryMoments,
-  themedPhoto
-} from "../mockData";
-
 const getStoredAvatarKey = (uid) => `stayvista-profile-photo-${uid}`;
 const getFavoritesKey = (uid) => `stayvista-favorites-${uid}`;
 const getWishlistKey = (uid) => `stayvista-wishlist-${uid}`;
@@ -554,10 +543,6 @@ function GuestHome() {
 
   const handleLogout = async () => {
     await signOut(auth);
-  };
-
-  const openUserProfile = () => {
-    window.location.href = "/profile";
   };
 
   const openSameTab = (path) => {

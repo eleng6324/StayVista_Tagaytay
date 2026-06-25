@@ -275,8 +275,6 @@ function AdminHome() {
     try {
       setGeneratingReport(true);
       let reportData;
-      const startDate = new Date(reportPeriod.startDate);
-      const endDate = new Date(reportPeriod.endDate);
 
       // Handle new report types from reportExport.js
       switch (reportType) {
