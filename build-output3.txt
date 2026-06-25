@@ -1,0 +1,6 @@
+﻿Creating an optimized production build...
+Failed to compile.
+
+[eslint] Plugin "react" was conflicted between "package.json ┬╗ eslint-config-react-app ┬╗ C:\Users\garci\web\lodging-system\node_modules\eslint-config-react-app\base.js" and "BaseConfig ┬╗ c:\Users\garci\web\lodging-system\node_modules\eslint-config-react-app\base.js".
+
+
