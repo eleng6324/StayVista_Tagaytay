@@ -46,6 +46,7 @@ function AccountSettings() {
   const [dailyStatus, setDailyStatus] = useState({ checkedInToday: false, nextDay: 1, rewardAmount: 0 });
   const [promotionListings, setPromotionListings] = useState([]);
   const [selectedPromotionListing, setSelectedPromotionListing] = useState("");
+  const [activePromotions, setActivePromotions] = useState([]);
   const [promotionMessage, setPromotionMessage] = useState("");
   const [pointsStatusMessage, setPointsStatusMessage] = useState("");
   const [showHistoryModal, setShowHistoryModal] = useState(false);
