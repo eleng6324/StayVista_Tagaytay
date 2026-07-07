@@ -64,7 +64,7 @@ function PhotoUpload() {
         setDraftId(generated);
       }
     }
-  }, []);
+  }, [draftId, previousState.draftId, previousState.listingDraftId]);
 
   useEffect(() => {
     if (window.__PhotoUploadNetworkDebugInstalled) return undefined;
@@ -220,23 +220,6 @@ function PhotoUpload() {
         draftId,
       },
     });
-  };
-
-  const handleUploadSelected = async () => {
-    if (!photos.some((photo) => photo.file)) {
-      alert('Select at least one new photo before uploading.');
-      return;
-    }
-
-    try {
-      await uploadPendingPhotos(photos);
-    } catch (err) {
-      console.error('Upload selected photos failed:', err);
-      setLastUploadError(uploadErrorMessage(err));
-      setFailedUploads(photos.filter(p => p.file).map(p => p.file));
-      setIsUploading(false);
-      alert(`Upload failed: ${uploadErrorMessage(err)}`);
-    }
   };
 
   const handleFileChange = async (e) => {
@@ -403,7 +386,6 @@ function PhotoUpload() {
         try {
           const dataUrl = await savePhotoToFirestore(file, user, draftIdLocal);
           results.push({ file, url: dataUrl, storageFallback: true });
-          setStorageFallbackUsed(true);
           uploadedCount += 1;
           setUploadProgress(Math.min(100, Math.round((uploadedCount / files.length) * 100)));
           continue;
@@ -514,16 +496,14 @@ function PhotoUpload() {
     if (!failedUploads || failedUploads.length === 0) return;
     try {
       const results = await uploadFiles(failedUploads);
-      // Map results back into photos state
       setPhotos((prev) => prev.map((p) => {
         if (p.file) {
-          const match = results.find(r => r.file.name === p.file.name && r.file.size === p.file.size);
+          const match = results.find((r) => r.file.name === p.file.name && r.file.size === p.file.size && r.file.lastModified === p.file.lastModified);
           if (match) return { ...p, file: null, url: match.url };
         }
         return p;
       }));
-      // remove uploaded files from failedUploads
-      setFailedUploads((prev) => prev.filter(f => !results.find(r => r.file.name === f.name && r.file.size === f.size)));
+      setFailedUploads((prev) => prev.filter((f) => !results.find((r) => r.file.name === f.name && r.file.size === f.size && r.file.lastModified === f.lastModified)));
       if (results.length > 0) {
         alert('Retry complete; check console for any remaining failures.');
       }
@@ -685,6 +665,21 @@ function PhotoUpload() {
               <div className="upload-progress-track">
                 <div className="upload-progress-fill" style={{ width: `${uploadProgress}%` }} />
               </div>
+            </div>
+          )}
+
+          {(lastUploadError || failedUploads.length > 0) && (
+            <div className="upload-error-panel" style={{ marginTop: 16, padding: 16, borderRadius: 14, background: '#fef2f2', border: '1px solid #fca5a5' }}>
+              {lastUploadError && (
+                <div style={{ color: '#b91c1c', marginBottom: failedUploads.length > 0 ? 8 : 0 }}>
+                  {lastUploadError}
+                </div>
+              )}
+              {failedUploads.length > 0 && (
+                <div style={{ color: '#991b1b' }}>
+                  {failedUploads.length} upload{failedUploads.length === 1 ? '' : 's'} failed. Please try again or remove the failed file{failedUploads.length === 1 ? '' : 's'}.
+                </div>
+              )}
             </div>
           )}
 

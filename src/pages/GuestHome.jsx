@@ -1,18 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { collection, doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import * as hostRewards from "../utils/hostRewards";
+import { categories, homeSections, experienceSections, serviceCategories, serviceCategoryDetails, categoryMoments } from "../mockData";
 import Navbar from "../components/Navbar";
-import {
-  categories,
-  homeSections,
-  experienceSections,
-  serviceCategories,
-  serviceCategoryDetails,
-  categoryMoments
-} from "../mockData";
 
 const getStoredAvatarKey = (uid) => `stayvista-profile-photo-${uid}`;
 const getFavoritesKey = (uid) => `stayvista-favorites-${uid}`;
@@ -307,17 +300,17 @@ function GuestHome() {
     return `/images/${category}/${fallbackName}.jpg`;
   };
 
-  const normalizeServiceCategory = (value) => (value || "").toString().trim().toLowerCase();
+  const normalizeServiceCategory = useCallback((value) => (value || "").toString().trim().toLowerCase(), []);
 
-  const isServiceListing = (listingData) => {
+  const isServiceListing = useCallback((listingData) => {
     const check = (
       listingData.selectedType || listingData.listingType || listingData.propertyCategory || listingData.type || ""
     ).toString().toLowerCase();
 
     return check.includes("service") || normalizeServiceCategory(listingData.selectedOption).length > 0;
-  };
+  }, [normalizeServiceCategory]);
 
-  const mapPublishedListing = (listingData) => {
+  const mapPublishedListing = useCallback((listingData) => {
     const priceSuffix = listingData.pricingModel === "perGroup"
       ? "/ group"
       : listingData.pricingModel === "perGuest"
@@ -353,7 +346,7 @@ function GuestHome() {
       hostEmail: listingData.hostEmail,
       hostPhotoURL: listingData.hostPhotoURL
     };
-  };
+  }, [isServiceListing, normalizeServiceCategory]);
 
   const homeSectionsWithPublished = useMemo(() => {
     if (!publishedHomeListings.length) return homeSections;
@@ -404,14 +397,14 @@ function GuestHome() {
   const activeServiceTitle = serviceCategories.find((service) => service.id === activeServiceCategory)?.title ?? "Photography";
   const activeServiceDetails = serviceCategoryDetails[activeServiceCategory] ?? serviceCategoryDetails.photography;
 
-  const matchesSearch = (item) => {
+  const matchesSearch = useCallback((item) => {
     const query = searchFilters.where.trim().toLowerCase();
     if (!query) return true;
 
     return [item.title, item.type, item.location, item.review, item.price]
       .filter(Boolean)
       .some((value) => value.toLowerCase().includes(query));
-  };
+  }, [searchFilters.where]);
 
   const filteredSections = useMemo(() => (
     activeSections
@@ -420,11 +413,11 @@ function GuestHome() {
         items: section.items.filter(matchesSearch)
       }))
       .filter((section) => section.items.length > 0)
-  ), [activeSections, searchFilters.where]);
+  ), [activeSections, matchesSearch]);
 
   const filteredServiceItems = useMemo(() => (
     activeServiceItems.filter(matchesSearch)
-  ), [activeServiceItems, searchFilters.where]);
+  ), [activeServiceItems, matchesSearch]);
 
   useEffect(() => {
     if (activeCategory !== "services") {
@@ -547,7 +540,7 @@ function GuestHome() {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [isServiceListing, mapPublishedListing]);
 
   const handleLogout = async () => {
     await signOut(auth);
