@@ -29,6 +29,8 @@ function PhotoUpload() {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [failedUploads, setFailedUploads] = useState([]);
+  const [lastUploadError, setLastUploadError] = useState(null);
+  const [storageFallbackUsed, setStorageFallbackUsed] = useState(false);
   const [draftId, setDraftId] = useState(previousState.draftId || previousState.listingDraftId || "");
 
   // Retrieve state from previous step
@@ -379,14 +381,14 @@ function PhotoUpload() {
             const currentProgress = Math.min(100, Math.round(((uploadedBytes + snapshot.bytesTransferred) / totalBytes) * 100));
             setUploadProgress(currentProgress);
           } else {
-            const approx = Math.round(((uploadedCountNum + (snapshot.bytesTransferred > 0 ? 0.5 : 0)) / files.length) * 100);
+            const approx = Math.round(((uploadedCount + (snapshot.bytesTransferred > 0 ? 0.5 : 0)) / files.length) * 100);
             setUploadProgress(Math.min(100, approx));
           }
         });
 
         results.push({ file, url: downloadURL });
-        uploadedBytesNum += file.size || 0;
-        uploadedCountNum += 1;
+        uploadedBytes += file.size || 0;
+        uploadedCount += 1;
         if (!useEqualWeights) {
           setUploadProgress(Math.min(100, Math.round((uploadedBytes / totalBytes) * 100)));
         } else {
@@ -507,6 +509,8 @@ function PhotoUpload() {
   const removePhoto = (indexToRemove) => {
     setPhotos((prev) => prev.filter((_, index) => index !== indexToRemove));
   };
+
+  const retryFailedUploads = async () => {
     if (!failedUploads || failedUploads.length === 0) return;
     try {
       const results = await uploadFiles(failedUploads);

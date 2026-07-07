@@ -5,6 +5,14 @@ import { collection, doc, getDoc, getDocs, query, setDoc, where } from "firebase
 import { auth, db } from "../firebase";
 import * as hostRewards from "../utils/hostRewards";
 import Navbar from "../components/Navbar";
+import {
+  categories,
+  homeSections,
+  experienceSections,
+  serviceCategories,
+  serviceCategoryDetails,
+  categoryMoments
+} from "../mockData";
 
 const getStoredAvatarKey = (uid) => `stayvista-profile-photo-${uid}`;
 const getFavoritesKey = (uid) => `stayvista-favorites-${uid}`;
