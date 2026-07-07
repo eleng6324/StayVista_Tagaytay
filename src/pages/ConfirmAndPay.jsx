@@ -536,7 +536,7 @@ function ConfirmAndPay() {
               {activeStep === 3 && (
                 <div style={{ padding: "0 24px 24px 24px", background: "#ffffff" }}>
                   <div style={{ padding: "24px", borderRadius: "20px", background: "#ffffff", border: "1px solid #e5e8df", display: "grid", gap: "16px" }}>
-                    <p style={{ margin: 0, color: "#5f6f63" }}>By selecting the button, I agree to the <a href="#" style={{ color: "#1f4729", textDecoration: "underline" }}>booking terms</a>.</p>
+                    <p style={{ margin: 0, color: "#5f6f63" }}>By selecting the button, I agree to the <button type="button" style={{ color: "#1f4729", textDecoration: "underline", background: "transparent", border: 0, padding: 0, cursor: "pointer" }}>booking terms</button>.</p>
                     <button
                       type="button"
                       onClick={handleStartCheckout}
@@ -724,7 +724,9 @@ function ConfirmAndPay() {
             originalTotal: totalToShow,
             couponCode: appliedCoupon?.code || null,
             couponDiscount: appliedCoupon?.discount ? Number(appliedCoupon.discount) : 0,
-            couponAmount: discounted.discountAmount || 0
+            couponAmount: discounted.discountAmount || 0,
+            hostEmail: stateHostEmail || "",
+            hostId: stateHostId || ""
           }}
           phoneNumber={phoneNumber}
           onClose={() => setShowPaymentModal(false)}

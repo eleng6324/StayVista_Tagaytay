@@ -194,7 +194,7 @@ function HostHome() {
         window.removeEventListener('storage', handleStorage);
       };
     }
-  }, []);
+  }, [location.state?.draftSaved, location.state?.publishedSuccess]);
 
   const emptyMessage = cardTab === "today"
     ? "You don't have any reservations"
@@ -499,6 +499,10 @@ function HostHome() {
           <button type="button" className="menu-item menu-item-icon" onClick={() => openSameTab("/account-settings")}> 
             <i className="fa-solid fa-gear" aria-hidden="true" />
             <span>Account settings</span>
+          </button>
+          <button type="button" className="menu-item menu-item-icon" onClick={() => { setMenuOpen(false); navigate('/host/wallet'); }}> 
+            <i className="fa-solid fa-wallet" aria-hidden="true" />
+            <span>My wallet</span>
           </button>
           <button type="button" className="menu-item menu-item-icon"> 
             <i className="fa-solid fa-book-open" aria-hidden="true" />

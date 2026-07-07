@@ -40,6 +40,7 @@ import VerifyListing from "./pages/VerifyListing";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import TransactionReceipt from "./pages/TransactionReceipt";
 import BookingApproval from "./pages/BookingApproval";
+import HostWallet from "./pages/HostWallet";
 import "./App.css";
 
 function rolePath(role) {
@@ -162,7 +163,7 @@ function ProtectedRoute({ allowedRoles, children }) {
 
 function App() {
   return (
-    <PayPalScriptProvider options={{ "client-id": "ARhQI9bRVQgQhR-JAjSSRG-uEPgHur_pv-334cDZ_eYAi3htkLMpVZV_b1ctkDQNQKlrLwOi1nFtmZKq", currency: "PHP" }}>
+    <PayPalScriptProvider options={{ "client-id": "AboP1_gvAzaGsDRa8lwNWGUbtiEBIMb8I7AJuOQHcynzia86nUQhQ-qfxW4PFuI6rjmb05EHZIjbeB1_", currency: "PHP" }}>
       <Router>
       <Routes>
         <Route path="/" element={<RoleRedirect />} />
@@ -411,6 +412,14 @@ function App() {
         />
         <Route path="/payment-success" element={<PaymentSuccess />} />
         <Route path="/transaction/:id" element={<TransactionReceipt />} />
+        <Route
+          path="/host/wallet"
+          element={
+            <ProtectedRoute allowedRoles={["host"]}>
+              <HostWallet />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/host/cohosts"
           element={

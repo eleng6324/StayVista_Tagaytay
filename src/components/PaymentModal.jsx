@@ -29,6 +29,8 @@ export default function PaymentModal({ booking = {}, phoneNumber = "", onClose, 
       paymentDate: new Date().toISOString(),
       currency: "PHP",
       booking: bookingRecord,
+      hostEmail: booking.hostEmail || bookingRecord.hostEmail || "",
+      hostId: booking.hostId || bookingRecord.hostId || "",
       payer,
       status: details.status || "COMPLETED"
     };
