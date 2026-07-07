@@ -6,7 +6,6 @@ import { auth, db } from "../firebase";
 import { loadBookings, filterBookingsByHost } from "../utils/bookingStorage";
 import {
   checkInHostDaily,
-  getHostPromotions,
   getPointsRewardData,
   redeemHostPromotion
 } from "../utils/hostRewards";
@@ -97,7 +96,6 @@ function AccountSettings() {
       const storedCoupons = JSON.parse(localStorage.getItem(`host-coupons-${user.uid}`) || "[]");
 
       const rewardData = getPointsRewardData(user.uid);
-      const promotions = getHostPromotions(user.uid);
 
       const loadPromotionListings = async () => {
         try {
@@ -129,7 +127,6 @@ function AccountSettings() {
       setPointsExpiring(rewardData.expiring);
       setPointsHistory(rewardData.history);
       setDailyStatus(rewardData.daily);
-      setActivePromotions(promotions);
       loadPromotionListings();
     };
 
@@ -141,7 +138,6 @@ function AccountSettings() {
       setPointsExpiring(rewardData.expiring);
       setPointsHistory(rewardData.history);
       setDailyStatus(rewardData.daily);
-      setActivePromotions(getHostPromotions(userId));
     };
 
     const handleStorage = (event) => {
@@ -247,7 +243,6 @@ function AccountSettings() {
     setPointsExpiring(rewardData.expiring);
     setPointsHistory(rewardData.history);
     setDailyStatus(rewardData.daily);
-    setActivePromotions(getHostPromotions(userId));
   };
 
   const handleDailyCheckIn = () => {

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import Navbar from "../components/Navbar";
 

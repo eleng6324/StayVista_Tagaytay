@@ -69,7 +69,7 @@ function GuestMessages() {
       window.removeEventListener("storage", handleStorage);
       clearInterval(refreshInterval);
     };
-  }, [refreshKey]);
+  }, []);
 
   const markAsRead = (id) => {
     const storedMessages = JSON.parse(localStorage.getItem("stayvista-user-messages") || "[]");

@@ -18,10 +18,6 @@ function normalizeAmenityLabel(value) {
     .replace(/\s+/g, "");
 }
 
-function formatPrice(value) {
-  return `₱${value.toLocaleString()}`;
-}
-
 function ListingEditor() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -83,7 +79,7 @@ function ListingEditor() {
         refreshEmail();
       }
     }
-  }, []);
+  }, [id, location?.state?.from, location.state?.listingId, location.state?.center, location.state?.address]);
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -1477,7 +1473,6 @@ function ListingEditor() {
     );
   }
 
-  const coverPhoto = listing.coverPhotoUrl || listing.photoUrls?.[0] || "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=2070&auto=format&fit=crop";
   const photoCount = listing.photoUrls?.length || 0;
   const selectedType = (listing.selectedType || listing.listingType || "Home").toString();
   const isService = selectedType.toLowerCase() === "service";
@@ -1805,7 +1800,7 @@ function ListingEditor() {
             {urls.length > 0 ? (
               urls.map((url, index) => (
                 <div key={url + index} className="photo-card" style={{ borderRadius: 12, padding: 16, background: '#fff', boxShadow: '0 1px 0 rgba(0,0,0,0.04)', textAlign: 'center' }}>
-                  <img src={url} alt={`Service photo ${index + 1}`} style={{ width: '100%', height: 120, objectFit: 'cover', borderRadius: 8 }} />
+                  <img src={url} alt={`Gallery item ${index + 1}`} style={{ width: '100%', height: 120, objectFit: 'cover', borderRadius: 8 }} />
                   <div style={{ marginTop: 8, fontWeight: 600 }}>Photo {index + 1}</div>
                 </div>
               ))

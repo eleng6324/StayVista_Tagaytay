@@ -63,7 +63,6 @@ function MapLocationSelection() {
     }
 
     const fetchCoords = async () => {
-      setIsGeocoding(true);
       try {
         const response = await fetch(
           `https://nominatim.openstreetmap.org/search?format=jsonv2&q=${encodeURIComponent(address)}&limit=1&addressdetails=1&accept-language=en`
@@ -78,8 +77,6 @@ function MapLocationSelection() {
         }
       } catch (error) {
         console.error("Geocoding error:", error);
-      } finally {
-        setIsGeocoding(false);
       }
     };
 
